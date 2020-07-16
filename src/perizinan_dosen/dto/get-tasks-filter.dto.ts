@@ -1,11 +1,9 @@
 import { IsOptional, IsIn, IsNotEmpty } from 'class-validator';
 
-export class GetTasksFilterDto {
-  // @IsOptional()
-  // @IsIn([TaskStatus.OPEN, TaskStatus.IN_PROGRESS, TaskStatus.DONE])
-  // status: TaskStatus;
-
-  @IsOptional()
+export class GetPerizinanDosenFilterDto {
   @IsNotEmpty()
-  search: string;
+  page: number;
+
+  @IsNotEmpty()
+  limit: number;
 }

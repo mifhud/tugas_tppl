@@ -1,13 +1,22 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
-@Entity()
+@Entity('perizinan_dosen')
 export class PerizinanDosen extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  title: string;
+  id_karyawan: number;
 
   @Column()
-  description: string;
+  disetujui: number;
+
+  @Column()
+  status: number;
+
+  @Column()
+  id_jadwal_perkuliahan: number;
+
+  @Column()
+  keterangan: string;
 }
