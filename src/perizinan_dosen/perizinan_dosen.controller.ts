@@ -4,6 +4,7 @@ import { ApiTags, ApiQuery } from '@nestjs/swagger';
 import { PerizinanDosen } from './perizinan_dosen.entity';
 import { CreatePerizinanDosenDto } from './dto/create_perizinan_dosen.dto';
 import { GetPerizinanDosenFilterDto } from './dto/get-tasks-filter.dto';
+import { GetPerizinanDosenByIdDto } from './dto/get_perizinan_by_id.dto';
 import { PerizinanDosenService } from './perizinan_dosen.service';
 
 @ApiTags('perizinan_dosen')
@@ -14,6 +15,15 @@ export class PerizinanDosenController {
   constructor(
     private perizinanDosenService: PerizinanDosenService
   ) {}
+
+  @Get()
+  @ApiQuery({name: 'id'})
+  getPerizinanDosenById(
+    @Query(ValidationPipe) filtedDto: GetPerizinanDosenByIdDto,
+  ): Promise<PerizinanDosen[]> {
+    return this.perizinanDosenService.getPerizinanDosenById(filtedDto);
+  }
+
 
   @Get()
   @ApiQuery({ name: 'limit' })

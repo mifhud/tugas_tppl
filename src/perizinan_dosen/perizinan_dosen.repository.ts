@@ -3,9 +3,24 @@ import { Logger, InternalServerErrorException } from '@nestjs/common';
 import { PerizinanDosen } from './perizinan_dosen.entity';
 import { GetPerizinanDosenFilterDto } from './dto/get-tasks-filter.dto';
 import { CreatePerizinanDosenDto } from './dto/create_perizinan_dosen.dto';
+import { GetPerizinanDosenByIdDto } from './dto/get_perizinan_by_id.dto';
 
 @EntityRepository(PerizinanDosen)
 export class PerizinanDosenRepository extends Repository<PerizinanDosen> {
+
+  async getPerizinanDosenById(
+    filterDto: GetPerizinanDosenByIdDto,
+  ): Promise<PerizinanDosen[]> {
+    const { id } = filterDto;
+    const query = this.createQueryBuilder('perizinan_dosen');
+
+    try{
+      const perizinanDosen = await query.getMany();
+      return perizinanDosen;
+    }catch (error){
+      throw new InternalServerErrorException();
+    }
+  }
 
   async getPerizinanDosen(
     filterDto: GetPerizinanDosenFilterDto,
