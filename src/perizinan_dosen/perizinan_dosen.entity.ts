@@ -9,9 +9,7 @@ export class PerizinanDosen extends BaseEntity {
   @Column()
   @ManyToOne(
     type => Karyawan, (column) => column.id, {
-    nullable: false,
-    eager: true,
-    primary: false
+    eager: false,
   })
   @JoinColumn({
       name: 'id_karyawan',
@@ -20,7 +18,7 @@ export class PerizinanDosen extends BaseEntity {
   id_karyawan: Karyawan;
 
   @Column()
-  disetujui: number;
+  update_status_by: number;
 
   @Column()
   status: number;

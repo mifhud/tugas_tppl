@@ -1,25 +1,19 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { PerizinanDosenStatus } from '../perizinan_dosen.enum';
 
-export class CreatePerizinanDosenDto {
+export class UpdatePerizinanDosenStatusDto {
   @ApiProperty({
     type: Number,
     required: true,
   })
   @IsNotEmpty()
-  id_karyawan: number;
+  status: number;
 
   @ApiProperty({
     type: Number,
     required: true,
   })
   @IsNotEmpty()
-  id_jadwal_perkuliahan: number;
-
-  @ApiProperty({
-    type: String,
-    required: false,
-  })
-  @IsOptional()
-  keterangan: string;
+  update_status_by: number;
 }
