@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { Logger, InternalServerErrorException } from '@nestjs/common';
+import { Logger, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { PerizinanDosen } from './perizinan_dosen.entity';
 import { GetPerizinanDosenFilterDto } from './dto/get-tasks-filter.dto';
 import { CreatePerizinanDosenDto } from './dto/create_perizinan_dosen.dto';
@@ -10,16 +10,18 @@ export class PerizinanDosenRepository extends Repository<PerizinanDosen> {
 
   async getPerizinanDosenById(
     filterDto: GetPerizinanDosenByIdDto,
-  ): Promise<PerizinanDosen[]> {
+  ): Promise<PerizinanDosen> {
     const { id } = filterDto;
-    const query = this.createQueryBuilder('perizinan_dosen');
+    const query = this.createQueryBuilder('perizinan_dosen')
+    .where("id = :id", { id: id });
 
-    try{
-      const perizinanDosen = await query.getMany();
-      return perizinanDosen;
-    }catch (error){
-      throw new InternalServerErrorException();
+    const perizinanDosen = await query.getOne();
+
+    if (!perizinanDosen) { 
+      throw new NotFoundException(`Perizinan dosen with ID "${id}" not found`);
     }
+
+    return perizinanDosen;
   }
 
   async getPerizinanDosen(

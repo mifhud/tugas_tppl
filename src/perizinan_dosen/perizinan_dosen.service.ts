@@ -15,7 +15,7 @@ export class PerizinanDosenService {
 
   async getPerizinanDosenById(
     filterDto: GetPerizinanDosenByIdDto,
-  ): Promise<PerizinanDosen[]> {
+  ): Promise<PerizinanDosen> {
     return this.perizinanDosenRepository.getPerizinanDosenById(filterDto);
   }
 

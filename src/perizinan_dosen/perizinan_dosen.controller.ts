@@ -25,9 +25,9 @@ export class PerizinanDosenController {
   @Get(':id')
   @ApiQuery({name: 'id'})
   getPerizinanDosenById(
-    @Query(ValidationPipe) filtedDto: GetPerizinanDosenByIdDto,
-  ): Promise<PerizinanDosen[]> {
-    return this.perizinanDosenService.getPerizinanDosenById(filtedDto);
+    @Query(ValidationPipe) filterDto: GetPerizinanDosenByIdDto,
+  ): Promise<PerizinanDosen> {
+    return this.perizinanDosenService.getPerizinanDosenById(filterDto);
   }
 
 
