@@ -1,4 +1,5 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Karyawan } from 'src/karyawan/karyawan.entity';
 
 @Entity('perizinan_dosen')
 export class PerizinanDosen extends BaseEntity {
@@ -6,7 +7,17 @@ export class PerizinanDosen extends BaseEntity {
   id: number;
 
   @Column()
-  id_karyawan: number;
+  @ManyToOne(
+    type => Karyawan, (column) => column.id, {
+    nullable: false,
+    eager: true,
+    primary: false
+  })
+  @JoinColumn({
+      name: 'id_karyawan',
+      referencedColumnName: 'id'
+  })
+  id_karyawan: Karyawan;
 
   @Column()
   disetujui: number;

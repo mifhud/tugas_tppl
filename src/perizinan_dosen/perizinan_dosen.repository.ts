@@ -4,6 +4,7 @@ import { PerizinanDosen } from './perizinan_dosen.entity';
 import { GetPerizinanDosenFilterDto } from './dto/get-tasks-filter.dto';
 import { CreatePerizinanDosenDto } from './dto/create_perizinan_dosen.dto';
 import { GetPerizinanDosenByIdDto } from './dto/get_perizinan_by_id.dto';
+import { Karyawan } from 'src/karyawan/karyawan.entity';
 
 @EntityRepository(PerizinanDosen)
 export class PerizinanDosenRepository extends Repository<PerizinanDosen> {
@@ -13,7 +14,8 @@ export class PerizinanDosenRepository extends Repository<PerizinanDosen> {
   ): Promise<PerizinanDosen> {
     const { id } = filterDto;
     const query = this.createQueryBuilder('perizinan_dosen')
-    .where("id = :id", { id: id });
+    .leftJoinAndSelect("perizinan_dosen.id_karyawan", "id_karyawan")
+    .where("perizinan_dosen.id = :id", { id: id });
 
     const perizinanDosen = await query.getOne();
 
@@ -44,7 +46,10 @@ export class PerizinanDosenRepository extends Repository<PerizinanDosen> {
     const { id_karyawan, disetujui, status, id_jadwal_perkuliahan, keterangan } = createPerizinanDosenDto;
 
     const perizinanDosen = new PerizinanDosen();
-    perizinanDosen.id_karyawan = id_karyawan;
+    // const karyawan = new Karyawan();
+    // karyawan.id = id_karyawan;
+    
+    // perizinanDosen.id_karyawan = karyawan;
     perizinanDosen.disetujui = disetujui;
     perizinanDosen.status = status;
     perizinanDosen.id_jadwal_perkuliahan = id_jadwal_perkuliahan;
