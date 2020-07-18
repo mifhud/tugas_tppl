@@ -16,7 +16,13 @@ export class PerizinanDosenController {
     private perizinanDosenService: PerizinanDosenService
   ) {}
 
-  @Get()
+
+  // @Get(':id')
+  // findOne(@Param() params: 'id') {
+  //   return 'This action returns a user';
+  // }
+
+  @Get(':id')
   @ApiQuery({name: 'id'})
   getPerizinanDosenById(
     @Query(ValidationPipe) filtedDto: GetPerizinanDosenByIdDto,
