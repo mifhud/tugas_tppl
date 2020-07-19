@@ -63,4 +63,22 @@ export class PerizinanDosenRepository extends Repository<PerizinanDosen> {
 
     return perizinanDosen;
   }
+
+  async getPerizinanDosenByIdAndIdTahunAkademik(
+      id_karyawan: number,
+      id_tahun_akademik: number,
+  ): Promise<PerizinanDosen[]> {
+      const query = this.createQueryBuilder('perizinan_dosen')
+      .leftJoinAndSelect('perizinan_dosen.id_jadwal_perkuliahan', 'id_jadwal_perkuliahan')
+      .where("perizinan_dosen.id_karyawan = :id_karyawan", { id_karyawan: id_karyawan })
+      .andWhere("id_jadwal_perkuliahan.id_tahun_akademik = :id_tahun_akademik", { id_tahun_akademik: id_tahun_akademik });
+
+      try {
+          const perizinanDosen = await query.getMany();
+          return perizinanDosen;
+      } catch (error) {
+          console.error(error);
+          throw new InternalServerErrorException();
+      }
+  }
 }

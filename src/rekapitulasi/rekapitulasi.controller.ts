@@ -22,7 +22,14 @@ export class RekapitulasiController {
   @Get('mahasiswa/:id')
   getRekapitulasiByIdMahasiswa(
     @Param('id', ParseIntPipe) id: number,
-  )/* : Promise<PerizinanMahasiswa> */ {
+  ): Promise<any> {
     return this.rekapitulasiService.getRekapitulasiByIdMahasiswa(id);
+  }
+
+  @Get('dosen/:id')
+  getRekapitulasiByIdDosen(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<any> {
+    return this.rekapitulasiService.getRekapitulasiByIdDosen(id);
   }
 }
