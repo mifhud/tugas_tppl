@@ -6,9 +6,6 @@ export class Ruang extends BaseEntity {
   id: number;
 
   @Column()
-  nik: string;
-
-  @Column()
   kode_ruang: string;
 
   @Column()

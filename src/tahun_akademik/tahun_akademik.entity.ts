@@ -6,13 +6,10 @@ export class TahunAkademik extends BaseEntity {
   id: number;
 
   @Column()
-  nik: string;
-
-  @Column()
   tahun: number;
 
   @Column()
-  semseter: number;
+  semester: number;
 
   @Column()
   status: string;

@@ -1,5 +1,6 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Karyawan } from 'src/karyawan/karyawan.entity';
+import { JadwalPerkuliahan } from 'src/jadwal_perkuliahan/jadwal_perkulihan.entity';
 
 @Entity('perizinan_dosen')
 export class PerizinanDosen extends BaseEntity {
@@ -9,7 +10,7 @@ export class PerizinanDosen extends BaseEntity {
   @Column()
   @ManyToOne(
     type => Karyawan, (column) => column.id, {
-    eager: false,
+    eager: true,
   })
   @JoinColumn({
       name: 'id_karyawan',
@@ -24,7 +25,15 @@ export class PerizinanDosen extends BaseEntity {
   status: number;
 
   @Column()
-  id_jadwal_perkuliahan: number;
+  @ManyToOne(
+    type => JadwalPerkuliahan, (column) => column.id, {
+    eager: true,
+  })
+  @JoinColumn({
+      name: 'id_jadwal_perkuliahan',
+      referencedColumnName: 'id'
+  })
+  id_jadwal_perkuliahan: JadwalPerkuliahan;
 
   @Column()
   keterangan: string;

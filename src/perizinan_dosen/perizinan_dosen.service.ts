@@ -25,13 +25,21 @@ export class PerizinanDosenService {
   async getPerizinanDosen(
     filterDto: GetPerizinanDosenFilterDto,
   ): Promise<PerizinanDosen[]> {
-    return this.perizinanDosenRepository.getPerizinanDosen(filterDto);
+    const perizinanDosen: PerizinanDosen[] = await this.perizinanDosenRepository.find({ skip: filterDto.page, take: filterDto.limit });
+
+    return perizinanDosen;
   }
 
   async getPerizinanDosenById(
     id: number
   ): Promise<PerizinanDosen> {
-    return this.perizinanDosenRepository.getPerizinanDosenById(id);
+    const perizinanDosen: PerizinanDosen = await this.perizinanDosenRepository.findOne(id);
+    
+    if(!perizinanDosen) {
+      throw new NotFoundException(`Perizinan dosen with ID "${id}" not found`);
+    }
+
+    return perizinanDosen;
   }
 
   async createPerizinanDosen(

@@ -4,17 +4,15 @@ import { MataKuliah } from 'src/mata_kuliah/mata_kuliah.entity';
 import { Karyawan } from 'src/karyawan/karyawan.entity';
 import { TahunAkademik} from 'src/tahun_akademik/tahun_akademik.entity';
 
-@Entity('jadwal_perkulihan')
-export class JadwalPerkulihan extends BaseEntity {
+@Entity('jadwal_perkuliahan')
+export class JadwalPerkuliahan extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   @ManyToOne(
     type => Ruang, (column) => column.id, {
-    nullable: false,
     eager: true,
-    primary: false
   })
   @JoinColumn({
       name: 'id_ruang',
@@ -25,9 +23,7 @@ export class JadwalPerkulihan extends BaseEntity {
   @Column()
   @ManyToOne(
     type => MataKuliah, (column) => column.id, {
-    nullable: false,
     eager: true,
-    primary: false
   })
   @JoinColumn({
       name: 'id_mata_kuliah',
@@ -38,9 +34,7 @@ export class JadwalPerkulihan extends BaseEntity {
   @Column()
   @ManyToOne(
     type => Karyawan, (column) => column.id, {
-    nullable: false,
     eager: true,
-    primary: false
   })
   @JoinColumn({
       name: 'id_karyawan',
@@ -51,25 +45,11 @@ export class JadwalPerkulihan extends BaseEntity {
   @Column()
   @ManyToOne(
     type => TahunAkademik, (column) => column.id, {
-    nullable: false,
     eager: true,
-    primary: false
   })
   @JoinColumn({
       name: 'id_tahun_akademik',
       referencedColumnName: 'id'
   })
   id_tahun_akademik: TahunAkademik;
-
-  @Column()
-  disetujui: number;
-
-  @Column()
-  status: number;
-
-  @Column()
-  id_jadwal_perkuliahan: number;
-
-  @Column()
-  keterangan: string;
 }
